@@ -1,0 +1,101 @@
+<!--Start with a comment!-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--empty unordered list, input text box, button: HTML-->
+
+<h1>Generate a list with Javascript!</h1>
+
+<input id="text-input" type="text">
+<br>
+
+<!--Javascript to make button work-->
+<button id="add-text-button">Add the text to the list</button>
+
+<ul id="list-of-text-entries">
+
+</ul>
+
+<button id="clear-list-button">Clear the list</button>
+
+<script>
+
+    //find elements on the page for JS
+  let textInputElement = document.querySelector('#text-input')
+  // console.log(textInputElement)
+  let addNewTextButton = document.querySelector('#add-text-button')
+  // console.log(addNewTextButton)
+  let textUnorderedList = document.querySelector('#list-of-text-entries')
+  let clearListButton = document.querySelector('#clear-list-button')
+
+    //counter
+  let numberOfListItems = 0
+
+  addNewTextButton.addEventListener('click', function() {
+        // alert("button clicked")  looks like it works
+
+        //stop processing if list full
+        if (numberOfListItems >= 10) {
+            alert('Your list is full')
+            return
+        }
+
+        // add instructions here
+    //1. read text from input
+  let newText=textInputElement.value
+        console.log(newText)
+
+    //  do nothing if no text entered do NOTHING
+      if (newText.length === 0) {
+          return
+      }
+
+    //  show alert message if text has too many letters; don't clear
+      if (newText.length > 50) {
+          alert('This text is too long')
+          return
+      }
+
+    //    2.Make a new list item element
+  let newListItemElement = document.createElement('li')
+
+  //      append new list item to list
+  newListItemElement.innerHTML = newText
+  textUnorderedList.appendChild(newListItemElement)
+
+   //   clear text input
+  textInputElement.value = ''
+
+   //     increase counter
+   numberOfListItems++
+        console.log(numberOfListItems)
+
+
+        })
+
+    clearListButton.addEventListener('click', function() {
+        textUnorderedList.innerHTML = ''
+
+// //Part 1b: Add a clear button. When clicked, all the li elements should be removed from the page so the ul list is empty.
+    // Part 1c: Prevent the user adding more than 10 items to the list. If the clear button is clicked, the user may keep adding items.
+    //
+    //     Part 1d:  Add validation using JavaScript. The form should only accept text of length between 1 and 50 characters.
+    //
+    //     Ignore the user input if there is no text entered
+    // Display an alert error message if it the text too long - more than 50 characters. Do not clear the text in the input.
+
+    //when the list is clear, need to reset to 0
+    numberOfListItems = 0
+
+    })
+
+</script>
+
+
+</body>
+</html>

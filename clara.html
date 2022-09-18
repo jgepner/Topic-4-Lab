@@ -1,0 +1,140 @@
+<!--
+    Question 1, Create List, 5 points
+
+Part 1a: Create a web page with an empty unordered list, an input text box, and button.   << HTML
+When the user types text into the input form and clicks the button, the text should be     << JavaScript
+added to the list, as a new list element. When the text has been added to the unordered
+list, clear the text from the input.
+
+Part 1b: Add a clear button.   << html
+When clicked, all the li elements should be removed from the   << JavaScript
+page so the ul list is empty.
+
+Part 1c: Prevent the user adding more than 10 items to the list. If the clear button is
+clicked, the user may keep adding items.
+
+Part 1d:  Add validation using JavaScript. The form should only accept text of length between
+1 and 50 characters.
+
+Ignore the user input if there is no text entered
+Display an alert error message if it the text too long - more than 50 characters. Do not clear
+the text in the input.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<h1>Generate a list with JavaScript!</h1>
+<!-- text input -->
+
+<input id="text-input" type="text">
+
+<br>
+
+<!-- JavaScript will make the button work -->
+<button id="add-text-button">Add the text to the list</button>
+
+<ul id="list-of-text-entries">
+    <!-- empty! -->
+</ul>
+
+<button id="clear-list-button">Clear the list</button>
+
+<script>
+
+    // Find the elements on the page that JavaScript will need to work with
+    // Giving elements IDs is usually the easiest way to find each element
+    let textInputElement = document.querySelector('#text-input')
+    // console.log(textInputElement)
+    let addNewTextButton = document.querySelector('#add-text-button')
+    // console.log(addNewTextButton)
+    let textUnorderedList = document.querySelector('#list-of-text-entries')
+    let clearListButton = document.querySelector('#clear-list-button')
+
+    let numberOfListItems = 0   // keep track of the number of items in the list
+
+    addNewTextButton.addEventListener('click', function() {
+        // alert("button clicked!")  // looks like this is working :)
+
+        // When the user types text into the input form and clicks the button,
+        // the text should be added to the list, as a new list element.
+        // When the text has been added to the unordered list,
+        // clear the text from the input.
+
+        // Check if there is room in the list for another item - only allowed to add 10
+        // TODO there are other ways to express this logic - maybe you think another
+        // way is clearer - that's also a correct solution!
+        if (numberOfListItems >= 10) {
+            // don't add
+            alert('Your list is full')
+            return   // stop processing this event - no more code in this function will run
+            // the user may try to click the button again, and then this function will start over
+            // returning doesn't affect other event handlers.
+        }
+
+
+        // 1. read the text from the input
+        let newText = textInputElement.value  // read the value property
+        console.log(newText)
+
+
+        // Is the text at least 1 letter long, and no more than 50 letters?
+
+        // Do nothing if no text entered
+        if (newText.length === 0) {  //always use double equals or triple equals to test equality
+            // do nothing
+            return
+        }
+
+        // show alert message if text is too many letters
+        // don't clear the input to allow the user to edit the text they entered
+        if (newText.length > 50) {
+            alert('This text is too long')
+            return
+        }
+
+        // 2. Make a new list item element
+        let newListItemElement = document.createElement('li')  // create list item
+
+        // Append the new list item to the unordered list
+        newListItemElement.innerHTML = newText  // text read from the input
+        textUnorderedList.appendChild(newListItemElement) // add to list
+
+        // Clear the text input, ready for the next item to be entered
+        textInputElement.value = ''  // set the value to an empty string to clear the input
+
+        numberOfListItems++  // increment value of number variable by 1
+        // numberOfListItems = numberOfListItems + 1   // equivalent to the above
+        console.log(numberOfListItems)
+
+    })
+
+    clearListButton.addEventListener('click', function() {
+        console.log('clear list!')
+        textUnorderedList.innerHTML = ''   // easiest way
+        // optional alternative - ask the textUnorderedList for its children, then
+        // loop over and remove each child
+
+        // When the list is cleared, need to reset the variable that counts the items
+        numberOfListItems = 0  // reset to 0, list is empty, has no items
+    })
+
+
+
+
+    // JavaScript comments - even as part of a HTML page - must use JS style comments
+    // TODO make page work.
+
+
+
+</script>
+
+</body>
+</html>
