@@ -65,9 +65,11 @@ let textInput = document.querySelector('#new-text')
   let addStudentButton = document.querySelector('#add-student')
   let numberOfStudents = document.querySelector('#student-count')
   let studentList = document.querySelector('#student-list')
+  let removeStudent = document.querySelector('#remove-selected-students')
 
   //Using JavaScript, display 0 in the span#student-count  (1pt)
-  numberOfStudents.innerHTML = 0
+  let count = numberOfStudents
+    count.innerHTML = 0
 
 // Add an event listener so that when button#add-students is clicked:
 
@@ -90,9 +92,10 @@ let textInput = document.querySelector('#new-text')
         let studentGpa = studentGPA.value
         if (studentGpa.length === 0) {
             alert('Please enter a GPA')
+            return
         }
-        if (studentGpa > 4) {
-            alert ('That number is too high. Enter a value between 0 and 4')
+        if (studentGpa > 4 || studentGpa< 0) {
+            alert ('Please enter a value between 0 and 4')
             return
         }
 
@@ -102,8 +105,8 @@ let textInput = document.querySelector('#new-text')
         // - Set the innerHTML of the li element to a string containing the student's name, id, and GPA  (1pt)
         // for example "Beyonce Knowles, id: aa1234bb, GPA 3.8"
         // Use a template string to generate this string
-        // let studentInfo = '${studentName}, ${studentID}, ${studentGPA}'
-        let studentInfo = name + ', ID: ' + studentId + ', GPA: ' + studentGpa
+        // let studentInfo = name + ', ID: ' + studentId + ', GPA: ' + studentGpa
+        let studentInfo = `${name}, ID: ${studentId}, GPA: ${studentGpa}`
         newListItem.innerHTML = studentInfo
         studentList.appendChild(newListItem)
         console.log(newListItem)
@@ -114,8 +117,10 @@ let textInput = document.querySelector('#new-text')
         studentGPA.value = ''
 
         //counter isn't working
-        numberOfStudents++
-        console.log(numberOfStudents)
+        // numberOfStudents++
+        count = count + 1
+        // console.log(numberOfStudents)
+        console.log(count)
 
         //note
 
@@ -125,10 +130,15 @@ let textInput = document.querySelector('#new-text')
             //   how do I add a class????
             // var element = document.getElementById("class")
             // element.classList.toggle("selected")
+            newListItem.classList.toggle("selected")
         })
 
         // - Add a click event handler to the new li element.  (3pt)
+    removeStudent.addEventListener('click', {
+        // "classList".removeChild("selected")
 
+
+    })
 
 
     })
